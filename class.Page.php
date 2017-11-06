@@ -52,7 +52,7 @@ class Page
 	 */
 	public function getCurrentUrl()
 	{
-		return 'http'.(($this->isHttps()) ? 's' : '').'://'.$_SERVER['SERVER_NAME'].(('80' == $_SERVER['SERVER_PORT'] || ('443' == $_SERVER['SERVER_PORT'] && $this->isHttps())) ? '' : (':'.$_SERVER['SERVER_PORT'])).$_SERVER['REQUEST_URI'];
+		return 'http' . (($this->isHttps()) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (('80' == $_SERVER['SERVER_PORT'] || ('443' == $_SERVER['SERVER_PORT'] && $this->isHttps())) ? '' : (':' . $_SERVER['SERVER_PORT'])) . $_SERVER['REQUEST_URI'];
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Page
 			$queries = array_merge($query, $queries);
 		}
 
-		return $parser['scheme'].'://'.$parser['host'].((isset($parser['path'])) ? $parser['path'] : '').(!empty($queries) ? ('?'.http_build_query($queries)) : '');
+		return $parser['scheme'] . '://' . $parser['host'] . ((isset($parser['path'])) ? $parser['path'] : '') . (!empty($queries) ? ('?' . http_build_query($queries)) : '');
 	}
 
 	/**
@@ -143,6 +143,7 @@ class Page
 	 *
 	 * @param string $text
 	 * @param bool   $hmtl
+	 * @param mixed  $html
 	 *
 	 * @return string
 	 */
