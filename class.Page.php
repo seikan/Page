@@ -52,7 +52,7 @@ class Page
 	 */
 	public function getCurrentUrl()
 	{
-		return 'http' . (($this->isHttps()) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (('80' == $_SERVER['SERVER_PORT'] || ('443' == $_SERVER['SERVER_PORT'] && $this->isHttps())) ? '' : (':' . $_SERVER['SERVER_PORT'])) . $_SERVER['REQUEST_URI'];
+		return 'http' . (($this->isHttps()) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (($_SERVER['SERVER_PORT'] == '80' || ($_SERVER['SERVER_PORT'] == '443' && $this->isHttps())) ? '' : (':' . $_SERVER['SERVER_PORT'])) . $_SERVER['REQUEST_URI'];
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Page
 	 */
 	public function isHttps()
 	{
-		return (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']) ? true : ((isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ? true : false);
+		return (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? true : ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? true : false);
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Page
 	 */
 	public function rewrite($url, $queries = [])
 	{
-		if (false === ($parser = @parse_url($url))) {
+		if (($parser = @parse_url($url)) === false) {
 			return false;
 		}
 
@@ -136,6 +136,16 @@ class Page
 				return (isset($_GET[$key])) ? $this->strips($_GET[$key], $html) : ((isset($_POST[$key])) ? $this->strips($_POST[$key], $html) : null);
 				break;
 		}
+	}
+
+	/**
+	 * Check if this is a form post request.
+	 *
+	 * @return bool
+	 */
+	public function isPost()
+	{
+		return !empty($_POST);
 	}
 
 	/**

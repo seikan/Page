@@ -112,6 +112,20 @@ http://www.example.com/home.php?page=3&action=show&sort=name
 
 
 
+###IsPost
+
+Check whether the page request is a POST request.
+
+> **bool** \$page->isPost();
+
+```php
+if ($page->isPost()) {
+	echo 'A form is posted.';
+}
+```
+
+
+
 ### Request
 
 Gets a value in HTTP `GET` or `POST` request.
