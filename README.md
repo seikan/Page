@@ -158,3 +158,23 @@ echo 'Text: '.$page->request('text', Page::GET, false);
 > Text (HTML): <strong>Example</strong>
 > Text: **Example**
 
+
+
+### Get Server Variables
+
+Gets a single or an array of server variable.
+
+> **string** \$page->getVariable( **string|array** \$key );
+
+```php
+// Get browser language
+echo "Browser Language: " . $page->getVariable('HTTP_ACCEPT_LANGUAGE');
+
+// Get multiple server variables
+$values = $page->getVariables(['SERVER_PROTOCOL', 'REQUEST_METHOD', 'QUERY_STRING']);
+
+echo "Protocol : " . $values['SERVER_PROTOCOL'] . "\n";
+echo "Method   : " . $values['REQUEST_METHOD'] . "\n";
+echo "Query    : " . $values['QUERY_STRING'] . "\n";
+```
+

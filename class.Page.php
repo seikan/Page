@@ -149,6 +149,27 @@ class Page
 	}
 
 	/**
+	 * Get server variable by key.
+	 *
+	 * @param array|string $key
+	 *
+	 * @return array|string
+	 */
+	public function getVariable($key)
+	{
+		if (is_array($key)) {
+			$values = [];
+			foreach ($key as $value) {
+				$values[$key] = (isset($_SERVER[$key])) ? $_SERVER[$key] : null;
+			}
+
+			return $values;
+		}
+
+		return (isset($_SERVER['key'])) ? $_SERVER['key'] : null;
+	}
+
+	/**
 	 * Clean up string to display safely.
 	 *
 	 * @param string $text
