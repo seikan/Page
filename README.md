@@ -54,7 +54,7 @@ Gets browser user agent.
 
 ```php
 // Display user agent
-echo 'User Agent: '.$page->getUserAgent();
+echo 'User Agent: ' . $page->getUserAgent();
 ```
 
 
@@ -130,7 +130,7 @@ if ($page->isPost()) {
 
 Gets a value in HTTP `GET` or `POST` request.
 
-> **string** \$page->request( **string** \$key\[, **int** \$method = Page::BOTH\]\[, **bool** \$html_encode = true\] );
+> **string** \$page->request( **string** \$key\[, **int** \$method = Page::BOTH\] );
 
 **Method**
 
@@ -140,23 +140,17 @@ Gets a value in HTTP `GET` or `POST` request.
 
 `Page::POST` Returns values in POST that matches the key.
 
-**HTML Encoded**
-
-Enables or disables HTML encodes during display.
-
 ```php
 // URL - http://www.example.com/home.php?page=1&sort=name&text=<strong>Example</strong>
 
 echo 'Sort: '.$page->request('sort').'<br />';
 echo 'Text (HTML): '.$page->request('text').'<br />';
-echo 'Text: '.$page->request('text', Page::GET, false);
 ```
 
 **Result:**
 
 > Sort: name
 > Text (HTML): <strong>Example</strong>
-> Text: **Example**
 
 
 
@@ -176,5 +170,48 @@ $values = $page->getVariables(['SERVER_PROTOCOL', 'REQUEST_METHOD', 'QUERY_STRIN
 echo "Protocol : " . $values['SERVER_PROTOCOL'] . "\n";
 echo "Method   : " . $values['REQUEST_METHOD'] . "\n";
 echo "Query    : " . $values['QUERY_STRING'] . "\n";
+```
+
+
+
+### Set Cookie
+
+Sets a cookie.
+
+> \$page->setCookie( **string** \$name, **string** $value\[, **int** \$day\[, **string** \$path = '/'\[, **string** \$domain = ''\[, **bool** \$secure = false\[, **bool** \$httpOnly = false\]\]\]\]\]\]);
+
+```php
+// Set cookie
+$page->setCookie('username', 'foo', 1);
+```
+
+
+
+### Get Cookie
+
+Gets a cookie by name.
+
+> \$page->getCookie( **string** \$name);
+
+```php
+// Get cookie
+echo $page->getCookie('username');
+```
+
+**Result:**
+
+> foo
+
+
+
+### Delete Cookie
+
+Deletes a cookie by name.
+
+> \$page->deleteCookie( **string** \$name);
+
+```php
+// Delete cookie
+$page->deleteCookie('username');
 ```
 
